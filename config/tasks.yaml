@@ -1,0 +1,7 @@
+judge:
+  description: >
+      1. Answer just the label legal or illegal depending on {act}.
+      2. Then go in more detail why {act} is legal or illegal by giving some context and history.
+
+  expected_output: >
+      A concise answer followed by a detailed explanation.
