@@ -14,8 +14,3 @@ def get_serper_api_key():
     load_env()
     openai_api_key = os.getenv("SERPER_API_KEY")
     return openai_api_key
-
-def print_api_key():
-    load_env()
-    openai_api_key = os.getenv("OPENAI_API_KEY")
-    print(openai_api_key)

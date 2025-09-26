@@ -1,7 +1,11 @@
-judge:
-  description: >
-      1. Answer just the label legal or illegal depending on {act}.
-      2. Then go in more detail why {act} is legal or illegal by giving some context and history.
-
-  expected_output: >
-      A concise answer followed by a detailed explanation.
+conversion:
+    description: >
+        Gather the most crucial information about the event: {event}.
+        You should gather the following if there if:
+            1. Date in format DD/MM/YYYY
+            2. Start time in format HH:MM
+            3. End time in format HH:MM
+            4. Event title, generate if not explicit
+        Make sure you are sending a valid date.
+    expected_output: >
+        A comprehensive list of all the key details of the event.
