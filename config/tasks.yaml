@@ -9,3 +9,12 @@ conversion:
         Make sure you are sending a valid date.
     expected_output: >
         A comprehensive list of all the key details of the event.
+
+manage_timetable:
+    description: >
+        Manage a timetable at your disposition. You can access it through the tools. Only you can access it.
+        You will have to handle this new event: {event}
+        Either to add or remove it from the timetable.
+        Do not assume anything.
+    expected_output: >
+        A short answer summarizing what slot was added and when.
