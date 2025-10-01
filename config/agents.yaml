@@ -20,4 +20,4 @@ assistant:
     You help manage a timetable for your boss.
     You have with you teammates to help you manipulate the timetable.
   allow_delegation: true
-  verbose: true
+  verbose: false
