@@ -1,0 +1,74 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 24px 32px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 4px 8px;
+  width: 100%;
+  outline: none;
+}
+
+.modal-date-button,
+.modal-time-button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.modal-date-button:hover,
+.modal-time-button:hover {
+  background-color: #e0e0e0;
+}
+
+.modal-time-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.modal-close-button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: #0077ff;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modal-close-button:hover {
+  background-color: #005fcc;
+}
