@@ -12,9 +12,7 @@ export default function SlotEditorModal({ slotTitle, onClose }: SlotEditorModalP
   const [endTime, setEndTime] = useState("10:00");
   const [date, setDate] = useState("2025-10-07");
 
-  // simple local selectors
   const times = Array.from({ length: 24 }, (_, h) => `${String(h).padStart(2, "0")}:00`);
-  const dates = ["2025-10-07", "2025-10-08", "2025-10-09", "2025-10-10", "2025-10-11"];
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -26,14 +24,13 @@ export default function SlotEditorModal({ slotTitle, onClose }: SlotEditorModalP
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        {/* Date selector */}
-        <select className="modal-date-button" value={date} onChange={(e) => setDate(e.target.value)}>
-          {dates.map((d) => (
-            <option key={d} value={d}>
-              {d}
-            </option>
-          ))}
-        </select>
+        {/* Date picker */}
+        <input
+          type="date"
+          className="modal-date-picker"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
 
         {/* Start/End time selector */}
         <div className="modal-time-row">
@@ -50,7 +47,7 @@ export default function SlotEditorModal({ slotTitle, onClose }: SlotEditorModalP
           </select>
         </div>
 
-        {/* Close button */}
+        {/* Done button */}
         <button className="modal-close-button" onClick={onClose}>
           Done
         </button>

@@ -45,6 +45,7 @@ export default function App2() {
   // ------------------ CHAT ------------------
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [chatInput, setChatInput] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const chatHistoryRef = useRef<HTMLDivElement>(null);
 
   // auto-scroll to bottom when messages change
@@ -58,10 +59,10 @@ export default function App2() {
     e.preventDefault();
     if (!chatInput.trim()) return;
 
-    // add user message
     setMessages((prev) => [...prev, { type: "user", text: chatInput }]);
     const userMessage = chatInput;
     setChatInput("");
+    setIsTyping(true); // 🟢 show typing indicator
 
     try {
       const response = await fetch("http://localhost:5000/chat", {
@@ -75,7 +76,6 @@ export default function App2() {
       const data = await response.json();
       const botReply = data.reply || "No reply";
 
-      // add bot message
       setMessages((prev) => [...prev, { type: "bot", text: botReply }]);
     } catch (err) {
       console.error(err);
@@ -83,6 +83,8 @@ export default function App2() {
         ...prev,
         { type: "bot", text: "Error: could not reach server" },
       ]);
+    } finally {
+      setIsTyping(false); // 🔴 hide typing indicator
     }
   };
 
@@ -171,7 +173,7 @@ export default function App2() {
                           onClick={() => {
                             setSelectedSlot(slot);
                             setShowModal(true);
-                          }} 
+                          }}
                           style={{
                             top: slot.startHour * HOUR_HEIGHT,
                             height: (slot.endHour - slot.startHour) * HOUR_HEIGHT,
@@ -193,13 +195,13 @@ export default function App2() {
             </div>
           </div>
         </div>
-         {/* ---------- SLOT EDITOR POPUP ---------- */}
-          {showModal && selectedSlot && (
+        {/* ---------- SLOT EDITOR POPUP ---------- */}
+        {showModal && selectedSlot && (
           <SlotEditorModal
             slotTitle={selectedSlot.title}
             onClose={() => setShowModal(false)}
           />
-      )}
+        )}
       </div>
 
       {/* ---------- CHATBOT ---------- */}
@@ -207,6 +209,7 @@ export default function App2() {
         className="chatbot-container"
         style={{ height: HEADER_HEIGHT + TIMETABLE_HEIGHT }}
       >
+
         <div className="chat-history" ref={chatHistoryRef}>
           {messages.map((m, idx) => (
             <div
@@ -216,6 +219,16 @@ export default function App2() {
               {m.text}
             </div>
           ))}
+
+          {isTyping && (
+            <div className="chat-message bot">
+              <div className="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          )}
         </div>
 
         <form className="chat-input" onSubmit={handleChatSubmit}>

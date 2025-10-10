@@ -35,19 +35,22 @@
   outline: none;
 }
 
-.modal-date-button,
-.modal-time-button {
+/* Stylish buttons */
+.modal-time-button,
+.modal-date-picker {
   padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #f0f0f0;
+  border-radius: 8px;
+  border: none;
+  background-color: #0077ff;
+  color: #fff;
   cursor: pointer;
   font-size: 0.95rem;
+  transition: background 0.2s;
 }
 
-.modal-date-button:hover,
-.modal-time-button:hover {
-  background-color: #e0e0e0;
+.modal-time-button:hover,
+.modal-date-picker:hover {
+  background-color: #005fcc;
 }
 
 .modal-time-row {
@@ -63,12 +66,13 @@
   padding: 8px 16px;
   border-radius: 8px;
   border: none;
-  background-color: #0077ff;
+  background-color: #00c853;
   color: #fff;
   cursor: pointer;
   font-weight: 600;
+  transition: background 0.2s;
 }
 
 .modal-close-button:hover {
-  background-color: #005fcc;
+  background-color: #009624;
 }
