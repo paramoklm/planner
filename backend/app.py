@@ -16,7 +16,6 @@ TIMETABLE_PATH = os.path.join(os.path.dirname(__file__), "timetable.json")
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    print("HHHEEEERRRRREEEE")
     data = request.get_json()
     user_input = data.get("message", "")
     print(f"User said: {user_input}")
