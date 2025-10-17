@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
+
 import {
   startOfWeek,
   addDays,
@@ -9,9 +11,7 @@ import {
 } from "date-fns";
 import timetableData from "../../backend/timetable.json";
 import "./App2.css";
-// top of file
 import SlotEditorModal from "./SlotEditorModal";
-
 
 interface SlotData {
   weekday: string;
@@ -22,9 +22,13 @@ interface SlotData {
 
 interface Slot {
   dayIndex: number;
-  startHour: number; // decimal hour
+  startHour: number;
   endHour: number;
   title: string;
+  date: string;
+  index: number;
+  startTime: string;
+  endTime: string;
 }
 
 interface ChatMessage {
@@ -48,7 +52,6 @@ export default function App2() {
   const [isTyping, setIsTyping] = useState(false);
   const chatHistoryRef = useRef<HTMLDivElement>(null);
 
-  // auto-scroll to bottom when messages change
   useEffect(() => {
     if (chatHistoryRef.current) {
       chatHistoryRef.current.scrollTop = chatHistoryRef.current.scrollHeight;
@@ -62,7 +65,7 @@ export default function App2() {
     setMessages((prev) => [...prev, { type: "user", text: chatInput }]);
     const userMessage = chatInput;
     setChatInput("");
-    setIsTyping(true); // 🟢 show typing indicator
+    setIsTyping(true);
 
     try {
       const response = await fetch("http://localhost:5000/chat", {
@@ -75,7 +78,6 @@ export default function App2() {
 
       const data = await response.json();
       const botReply = data.reply || "No reply";
-
       setMessages((prev) => [...prev, { type: "bot", text: botReply }]);
     } catch (err) {
       console.error(err);
@@ -84,7 +86,7 @@ export default function App2() {
         { type: "bot", text: "Error: could not reach server" },
       ]);
     } finally {
-      setIsTyping(false); // 🔴 hide typing indicator
+      setIsTyping(false);
     }
   };
 
@@ -94,14 +96,25 @@ export default function App2() {
     for (const dateStr in timetableData) {
       const [dd, mm, yyyy] = dateStr.split("/");
       const date = new Date(+yyyy, +mm - 1, +dd);
+
       if (date >= weekStart && date < addDays(weekStart, 7)) {
-        timetableData[dateStr].forEach((s: SlotData) => {
+        timetableData[dateStr].forEach((s: SlotData, idx: number) => {
           const [sh, sm] = s.startTime.split(":").map(Number);
           const [eh, em] = s.endTime.split(":").map(Number);
           const startHour = sh + sm / 60;
           const endHour = eh + em / 60;
           const dayIndex = getDay(date);
-          slots.push({ dayIndex, startHour, endHour, title: s.title });
+
+          slots.push({
+            dayIndex,
+            startHour,
+            endHour,
+            title: s.title,
+            date: dateStr,
+            index: idx,
+            startTime: s.startTime,
+            endTime: s.endTime,
+          });
         });
       }
     }
@@ -112,12 +125,6 @@ export default function App2() {
 
   const [showModal, setShowModal] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
-
-
-  const handleSlotClick = () => {
-    setShowModal(true);
-  };
-
 
   const prevWeek = () => setWeekStart(subWeeks(weekStart, 1));
   const nextWeek = () => setWeekStart(addWeeks(weekStart, 1));
@@ -150,7 +157,11 @@ export default function App2() {
               <div className="time-column">
                 <div className="day-header" style={{ height: HEADER_HEIGHT }} />
                 {Array.from({ length: TIMETABLE_HOURS }).map((_, hour) => (
-                  <div key={hour} className="time-row" style={{ height: HOUR_HEIGHT }}>
+                  <div
+                    key={hour}
+                    className="time-row"
+                    style={{ height: HOUR_HEIGHT }}
+                  >
                     {String(hour).padStart(2, "0")}:00
                   </div>
                 ))}
@@ -159,24 +170,34 @@ export default function App2() {
               {/* Day columns */}
               {Array.from({ length: 7 }).map((_, i) => {
                 const dayDate = addDays(weekStart, i);
-                const daySlots = slots.filter((s) => s.dayIndex === getDay(dayDate));
+                const daySlots = slots.filter(
+                  (s) => s.dayIndex === getDay(dayDate)
+                );
+
                 return (
                   <div key={i} className="day-column">
-                    <div className="day-header" style={{ height: HEADER_HEIGHT }}>
+                    <div
+                      className="day-header"
+                      style={{ height: HEADER_HEIGHT }}
+                    >
                       {format(dayDate, "EEE dd/MM")}
                     </div>
-                    <div className="day-slots" style={{ height: TIMETABLE_HEIGHT }}>
+                    <div
+                      className="day-slots"
+                      style={{ height: TIMETABLE_HEIGHT }}
+                    >
                       {daySlots.map((slot, idx) => (
                         <div
                           key={idx}
                           className="busy-block"
                           onClick={() => {
-                            setSelectedSlot(slot);
+                            setSelectedSlot({ ...slot, index: idx });
                             setShowModal(true);
                           }}
                           style={{
                             top: slot.startHour * HOUR_HEIGHT,
-                            height: (slot.endHour - slot.startHour) * HOUR_HEIGHT,
+                            height:
+                              (slot.endHour - slot.startHour) * HOUR_HEIGHT,
                           }}
                           title={`${slot.title} (${formatHour(
                             slot.startHour
@@ -195,10 +216,15 @@ export default function App2() {
             </div>
           </div>
         </div>
+
         {/* ---------- SLOT EDITOR POPUP ---------- */}
         {showModal && selectedSlot && (
           <SlotEditorModal
             slotTitle={selectedSlot.title}
+            date={selectedSlot.date}
+            index={selectedSlot.index}
+            startTime={selectedSlot.startTime}
+            endTime={selectedSlot.endTime}
             onClose={() => setShowModal(false)}
           />
         )}
@@ -209,14 +235,19 @@ export default function App2() {
         className="chatbot-container"
         style={{ height: HEADER_HEIGHT + TIMETABLE_HEIGHT }}
       >
-
         <div className="chat-history" ref={chatHistoryRef}>
           {messages.map((m, idx) => (
             <div
               key={idx}
-              className={`chat-message ${m.type === "user" ? "user" : "bot"}`}
+              className={`chat-message ${
+                m.type === "user" ? "user" : "bot"
+              }`}
             >
-              {m.text}
+              {m.type === "bot" ? (
+                <ReactMarkdown>{m.text}</ReactMarkdown>
+              ) : (
+                m.text
+              )}
             </div>
           ))}
 

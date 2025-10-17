@@ -63,6 +63,11 @@ def is_slot_conflict(eventSlot: dict):
 
 # Add the event slot to the timetable
 def add_slot(eventSlot: dict) -> str:
+    try:
+        datetime.strptime(eventSlot["date"], "%d/%m/%Y")
+    except (ValueError, KeyError):
+        return "ERROR: Invalid date format. Expected DD/MM/YYYY."
+
     filename = "timetable.json"
     # Load timetable from file or create empty one if file doesn't exist
     if os.path.exists(filename):

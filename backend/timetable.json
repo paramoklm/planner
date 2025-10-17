@@ -1,98 +1,68 @@
 {
-    "15/05/2025": [
+    "13/10/2025": [
         {
-            "weekday": "Thursday",
-            "startTime": "00:00",
-            "endTime": "23:59",
-            "title": "Camille's Birthday"
-        }
-    ],
-    "04/10/2025": [
-        {
-            "weekday": "Saturday",
+            "weekday": "Monday",
             "startTime": "09:00",
             "endTime": "10:00",
-            "title": "Gym Session"
-        }
-    ],
-    "05/10/2025": [
-        {
-            "weekday": "Sunday",
-            "startTime": "09:00",
-            "endTime": "17:00",
-            "title": "Odyssea Race"
-        }
-    ],
-    "07/10/2025": [
-        {
-            "weekday": "Tuesday",
-            "startTime": "19:30",
-            "endTime": "21:30",
-            "title": "Pizzeria Popolare"
+            "title": "Team Meeting"
         },
         {
-            "weekday": "Tuesday",
+            "title": "Groceries",
+            "startTime": "17:00",
+            "endTime": "19:00",
+            "weekday": ""
+        }
+    ],
+    "14/10/2025": [
+        {
+            "title": "Gym Session",
             "startTime": "08:00",
             "endTime": "09:00",
-            "title": "Gym Session"
+            "weekday": ""
         },
         {
             "weekday": "Tuesday",
-            "startTime": "17:30",
-            "endTime": "18:30",
-            "title": "Job Interview with Margo"
+            "startTime": "18:00",
+            "endTime": "19:00",
+            "title": "Haircut Appointment"
         },
         {
             "weekday": "Tuesday",
             "startTime": "13:00",
-            "endTime": "14:00",
-            "title": "Haircut"
+            "endTime": "17:00",
+            "title": "AI Workshop"
         }
     ],
-    "01/09/2025": [
+    "17/10/2025": [
         {
-            "weekday": "lundi",
-            "startTime": "12:15",
-            "endTime": "13:15",
-            "title": "j'ai eu un dejeuner avec mon coeur"
+            "weekday": "Friday",
+            "startTime": "12:00",
+            "endTime": "13:00",
+            "title": "Gym Session"
         }
     ],
-    "12/10/2025": [
+    "15/10/2025": [
+        {
+            "weekday": "Tuesday",
+            "startTime": "12:00",
+            "endTime": "14:00",
+            "title": "Lunch with Friends"
+        }
+    ],
+    "16/10/2025": [
+        {
+            "weekday": "Friday",
+            "startTime": "14:00",
+            "endTime": "17:00",
+            "title": "Steer committee"
+        }
+    ],
+    "19/10/2025": [
         {
             "weekday": "Sunday",
             "startTime": "09:00",
-            "endTime": "13:00",
-            "title": "Paris 20km Race"
-        }
-    ],
-    "09/10/2025": [
-        {
-            "weekday": "Thursday",
-            "startTime": "19:00",
-            "endTime": "21:00",
-            "title": "Afterwork Aubay"
-        },
-        {
-            "weekday": "Friday",
-            "startTime": "16:30",
-            "endTime": "17:00",
+            "endTime": "11:00",
             "title": "Run Session"
-        }
-    ],
-    "11/10/2025": [
-        {
-            "weekday": "Saturday",
-            "startTime": "11:00",
-            "endTime": "15:00",
-            "title": "Celian's Birthday"
-        }
-    ],
-    "10/10/2025": [
-        {
-            "weekday": "Friday",
-            "startTime": "17:00",
-            "endTime": "18:00",
-            "title": "Gym Session"
         }
     ]
 }
