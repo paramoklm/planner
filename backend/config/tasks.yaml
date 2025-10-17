@@ -1,0 +1,34 @@
+conversion:
+    description: >
+        Gather the most crucial information about the event: {event}.
+        You should gather the following if there if:
+            1. Date in format DD/MM/YYYY (name of the field: "date")
+            2. Start time in format HH:MM (name of the field: "startTime")
+            3. End time in format HH:MM (name of the fied: "endTime")
+            4. Event title, generate if not explicit (name of the field: "title")
+        Make sure you are sending a valid date.
+    expected_output: >
+        A comprehensive list of all the key details of the event.
+
+manage_timetable:
+    description: >
+        Manage a timetable at your disposition. You can access it through the tools. Only you can access it.
+        You will have to handle this new event: {event}.
+        You can and should delegate only to the Event Summarizer in order to check if the date is valid and to create the proper format for this event.
+        If you are removing a slot, make sure to access the timetable first to make sure which slot is {event} talking about. It might not be
+        the same title. The format can also be invalid, if you get any errors, take the error message and fix the input structure.
+        If you are failing multiple times to delete an event, stop trying: assume that it was already deleted.
+    expected_output: >
+        A short answer summarizing what slot was added or deleted and when.
+
+answer_question:
+    description: >
+        Answer the following question about the timetable at your disposal: {event}
+        You can access it through the tools. Only you can access it.
+        The user might ask questions such as:
+          - What events are scheduled on a given date.
+          - When a specific event is happening.
+          - Which days are free or busy.
+        Make sure your answers are accurate and based on the timetable data.
+    expected_output: >
+        A clear and concise natural-language answer that directly responds to the user's question about the timetable.
