@@ -44,3 +44,10 @@ This showcases the power of **multi-agent collaboration** — where each AI focu
 - 🔄 **Fetch API** — to communicate with Flask backend
 
 ---
+<img width="1860" height="886" alt="Screenshot 2025-10-17 190202" src="https://github.com/user-attachments/assets/260558ff-252c-42cb-8d2a-37b82a4387a4" />
+
+<img width="1377" height="895" alt="Screenshot 2025-10-17 190251" src="https://github.com/user-attachments/assets/9a60504b-ccc4-41e9-ade3-adc745428aeb" />
+
+
+
+
